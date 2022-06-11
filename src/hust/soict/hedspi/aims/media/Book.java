@@ -29,10 +29,10 @@ public class Book extends Media {
         }
         System.out.println("Removed author successfully!");
     }
-    public void PrintList(){
+    /*public void PrintList(){
         System.out.print("ID" + this.ID + " - " + this.getTitle() + " - " + this.getCategory() + " - " + this.getCost() + " ");
         for (int i = 0; i < authors.size(); i++){
             System.out.print(authors.get(i) + " ");
         }
-    }
+    }*/
 }

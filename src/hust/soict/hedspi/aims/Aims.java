@@ -1,8 +1,6 @@
 package hust.soict.hedspi.aims;
 
-import hust.soict.hedspi.aims.media.Book;
-import hust.soict.hedspi.aims.media.DigitalVideoDisc;
-import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.*;
 import hust.soict.hedspi.aims.order.Order;
 import hust.soict.hedspi.aims.utils.myDate;
 
@@ -40,7 +38,7 @@ public class Aims {
                     break;
                 case 2:
                     if(valid == true) {
-                        System.out.print("You want to add Book/Disc?: ");
+                        System.out.print("You want to add Book/Disc/CD?: ");
                         String temp = sc.nextLine();
                         if (temp.equals("Disc")) {
                             System.out.print("Title: ");
@@ -53,9 +51,18 @@ public class Aims {
                             int length = sc.nextInt();
                             System.out.print("Cost: ");
                             float cost = sc.nextFloat();
-                            Media media = new DigitalVideoDisc(title, category, director, length, cost);
+                            Media media = new DigitalVideoDisc(title, category, cost, length, director);
                             anOrder.addMedia(media);
-                            System.out.println("Add Disc successfully!");
+                            DigitalVideoDisc disc_temp = (DigitalVideoDisc)media;
+                            sc.nextLine();
+                            System.out.print("Play DVD? (Y/N) ");
+                            String play_choice = sc.nextLine();
+                            if (play_choice.equals("Y")){
+                                disc_temp.play();
+                            }
+                            else {
+                                System.out.println("You have added DVD successfully!");
+                            }
                         } else if (temp.equals("Book")) {
                             System.out.print("Title: ");
                             String title = sc.nextLine();
@@ -67,14 +74,53 @@ public class Aims {
                             Book book = new Book(title, category, cost);
                             int numberOfAuthor = sc.nextInt();
                             sc.nextLine();
+
                             for (int i = 0; i < numberOfAuthor; i++) {
                                 System.out.print("Author " + (i + 1) + ": ");
                                 String name = sc.nextLine();
                                 book.addAuthor(name);
                             }
                             anOrder.addMedia(book);
+
                             System.out.println("Add Book successfully!");
-                        } else {
+                        }
+                        else if (temp.equals("CD")){
+                            System.out.print("Title: ");
+                            String title = sc.nextLine();
+                            System.out.print("Category: ");
+                            String category = sc.nextLine();
+                            System.out.print("Director: ");
+                            String director = sc.nextLine();
+                            System.out.print("Cost: ");
+                            float cost = sc.nextFloat();
+                            System.out.print("Length: ");
+                            int length = sc.nextInt();
+                            CompactDisc cd = new CompactDisc(title,category,cost,length,director);
+                            System.out.print("Number of tracks?");
+                            int number = sc.nextInt();
+                            sc.nextLine();
+                            for (int i = 0; i < number; i++){
+                                System.out.print("Track " + (i + 1) + ": ");
+                                System.out.print("Title: ");
+                                sc = new Scanner(System.in);
+                                String t = sc.nextLine();
+                                System.out.print("Length: ");
+                                sc = new Scanner(System.in);
+                                int l = sc.nextInt();
+                                Track t_temp = new Track(t, l);
+                                cd.addTrack(t_temp);
+                            }
+                            sc.nextLine();
+                            System.out.print("Play CD? (Y/N) ");
+                            String play_choice = sc.nextLine();
+                            if (play_choice.equals("Y")){
+                                cd.play();
+                            }
+                            else {
+                                System.out.println("You have added CD successfully!");
+                            }
+                        }
+                        else {
                             System.out.println("Invalid choice");
                         }
                     }
